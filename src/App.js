@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { requestCovidInfo } from './store/actions';
+import { Input, AppButton, Wrap, Box, Title, ContentText, Content, Label } from './components';
 
-function App() {
+
+function App({ covid = {}}) {
+
+    covid = useSelector(state => state.covid);
+    
+    const dispatch = useDispatch();
+
+    const [countryName, setName] = useState('');   
+
+    const [wrapVisibility, setWrapVisibility] = useState(false);
+    const toggleVisibility = () => setWrapVisibility(!wrapVisibility||true);   
+        
+    const updateName = e => {
+        setName(e.target.value);
+    };  
+    
+    const searchCovid = () => {
+      
+      dispatch(requestCovidInfo(countryName));
+      
+      setTimeout(() => {
+        toggleVisibility();
+      }, 250); 
+                        
+      setName('');
+    }    
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Input
+          type="text"
+          autocomplete="off"
+          placeholder="Type country name here"
+          name="countryName"
+          value={countryName} 
+          onChange={updateName}/>
+      <AppButton onClick={() => searchCovid()}>Search</AppButton>
+      <Wrap isVisible={wrapVisibility}>
+        <Box>
+          <Title>{covid.data.Country}</Title>
+          <ContentText>Active {covid.data.Active}</ContentText>
+          <ContentText>Confirmed {covid.data.Confirmed}</ContentText>
+          <ContentText>Deaths {covid.data.Deaths}</ContentText>
+          <Label>Recovered {covid.data.Recovered}</Label>
+        </Box>
+      </Wrap>      
+
+    </>
   );
 }
 
