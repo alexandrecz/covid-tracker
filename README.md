@@ -2,7 +2,7 @@ A simple React project using SAGA middleware to find COVID-19 info by country na
 
 Also using styled component and Stagger Effect.
 
-![alt text](https://github.com/alexandrecz/modern-saga/blob/master/img/app.png)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
