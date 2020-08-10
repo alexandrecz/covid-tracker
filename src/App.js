@@ -1,54 +1,66 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestCovidInfo } from './store/actions';
-import { Input, AppButton, Wrap, Box, Title, ContentText, Content, Label } from './components';
+import { countryList } from './data';
+import { Header, Select, List, ListItem, Title, Circle, Label } from './components';
 
 
 function App({ covid = {}}) {
 
-    covid = useSelector(state => state.covid);
-    
-    const dispatch = useDispatch();
+    covid = useSelector(state => state.covid);  
+  
+    const counterDelay = 200;
+    const countries = countryList;
+   
+    const dispatch = useDispatch();    
 
-    const [countryName, setName] = useState('');   
+    const [listVisibility, setListVisibility] = useState(false);
+    const toggleVisibility = () => setListVisibility(!listVisibility || true);      
 
-    const [wrapVisibility, setWrapVisibility] = useState(false);
-    const toggleVisibility = () => setWrapVisibility(!wrapVisibility||true);   
-        
-    const updateName = e => {
-        setName(e.target.value);
-    };  
-    
-    const searchCovid = () => {
+    const handleChange = (e) => {
+      const countryName = e.target.value;     
       
       dispatch(requestCovidInfo(countryName));
       
       setTimeout(() => {
         toggleVisibility();
       }, 250); 
-                        
-      setName('');
-    }    
+    }
+    
 
   return (
     <>
-      <Input
-          type="text"
-          autocomplete="off"
-          placeholder="Type country name here"
-          name="countryName"
-          value={countryName} 
-          onChange={updateName}/>
-      <AppButton onClick={() => searchCovid()}>Search</AppButton>
-      <Wrap isVisible={wrapVisibility}>
-        <Box>
-          <Title>{covid.data.Country}</Title>
-          <ContentText>Active {covid.data.Active}</ContentText>
-          <ContentText>Confirmed {covid.data.Confirmed}</ContentText>
-          <ContentText>Deaths {covid.data.Deaths}</ContentText>
-          <Label>Recovered {covid.data.Recovered}</Label>
-        </Box>
-      </Wrap>      
+      <Header>
+        <Title>COVID-19 Tracker</Title>
+
+        <Select onChange={handleChange}>
+          {countries.map((country, index)=> (           
+           <option key={index} value={country}>               
+              {country}
+           </option>
+       ))}
+
+        </Select>
+      </Header>      
+
+      <List>
+        <ListItem key={1} isVisible={listVisibility} delay={1*counterDelay}>
+            <Label>Active</Label>
+            <Circle>{covid.data.active}</Circle>
+        </ListItem>
+        <ListItem key={2} isVisible={listVisibility} delay={2*counterDelay}>
+            <Label>Critical</Label>
+            <Circle>{covid.data.critical}</Circle>
+        </ListItem>
+        <ListItem key={3} isVisible={listVisibility} delay={3*counterDelay}>
+            <Label>Deaths</Label>
+            <Circle>{covid.data.deaths}</Circle>
+        </ListItem>
+        <ListItem key={4} isVisible={listVisibility} delay={4*counterDelay}>
+            <Label>Recovered</Label>
+            <Circle>{covid.data.recovered}</Circle>
+        </ListItem>         
+      </List>      
 
     </>
   );

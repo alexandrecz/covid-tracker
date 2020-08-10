@@ -9,16 +9,16 @@ function* requestCovidAsync({ payload }) {
 
         const countryName = payload;
         
-        const COVID_API_URL = 'https://api.covid19api.com/live/country/';       
+        const COVID_API_URL = 'https://coronavirus-19-api.herokuapp.com/countries/';       
         
         const response = yield call(
             fetch,
-            `${COVID_API_URL}${countryName}/status/confirmed`
+            `${COVID_API_URL}${countryName}`
         );
         
         const data = yield call([response, response.json]);     
 
-        const covidData = data.slice(-1)[0];        
+        const covidData = data;        
         
         yield put({ type: 'SUCCESS_COVID_INFO', payload: { covidData } });
 
@@ -26,7 +26,7 @@ function* requestCovidAsync({ payload }) {
         console.log(
             "%cERROR",
             "text-transform: uppercase; padding: 10px; background: red; color: white;",
-            `requestCocidInfoAsync: ${error}`
+            `requestCovidInfoAsync: ${error}`
         );
 
         yield put({ type: 'FAILURE_COVID_INFO' });
