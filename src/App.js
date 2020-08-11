@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestCovidInfo } from './store/actions';
 import { countryList } from './data';
-import { Header, Select, List, ListItem, Title, Circle, Label } from './components';
+import * as Comp from './components';
+import globe from './img/globe.svg';
 
 
 function App({ covid = {}}) {
 
-    covid = useSelector(state => state.covid);  
+    covid = useSelector(state => state.covid);
   
     const counterDelay = 200;
     const countries = countryList;
@@ -17,51 +18,57 @@ function App({ covid = {}}) {
     const [listVisibility, setListVisibility] = useState(false);
     const toggleVisibility = () => setListVisibility(!listVisibility || true);      
 
+    const setToogle = () => {
+      setTimeout(() => {
+        toggleVisibility();
+      }, 250);
+    };   
+
     const handleChange = (e) => {
       const countryName = e.target.value;     
       
-      dispatch(requestCovidInfo(countryName));
-      
-      setTimeout(() => {
-        toggleVisibility();
-      }, 250); 
-    }
-    
+      if(!countryName.match('Select')){
+        dispatch(requestCovidInfo(countryName));
+        setToogle();
+      }      
+    };    
 
   return (
     <>
-      <Header>
-        <Title>COVID-19 Tracker</Title>
+      <Comp.Header>
+        <Comp.Logo alt="" src={globe}/>
+        
+        <Comp.Title>COVID-19 Tracker</Comp.Title>
 
-        <Select onChange={handleChange}>
+        <Comp.Select onChange={handleChange}>
           {countries.map((country, index)=> (           
            <option key={index} value={country}>               
               {country}
            </option>
-       ))}
+         ))}
 
-        </Select>
-      </Header>      
+        </Comp.Select>
+      </Comp.Header>  
 
-      <List>
-        <ListItem key={1} isVisible={listVisibility} delay={1*counterDelay}>
-            <Label>Active</Label>
-            <Circle>{covid.data.active}</Circle>
-        </ListItem>
-        <ListItem key={2} isVisible={listVisibility} delay={2*counterDelay}>
-            <Label>Critical</Label>
-            <Circle>{covid.data.critical}</Circle>
-        </ListItem>
-        <ListItem key={3} isVisible={listVisibility} delay={3*counterDelay}>
-            <Label>Deaths</Label>
-            <Circle>{covid.data.deaths}</Circle>
-        </ListItem>
-        <ListItem key={4} isVisible={listVisibility} delay={4*counterDelay}>
-            <Label>Recovered</Label>
-            <Circle>{covid.data.recovered}</Circle>
-        </ListItem>         
-      </List>      
-
+      <Comp.List>
+        <Comp.ListItem key={1} isVisible={listVisibility} delay={1*counterDelay}>
+            <Comp.Label>Active</Comp.Label>
+            <Comp.Circle>{covid.data.active}</Comp.Circle>
+        </Comp.ListItem>
+        <Comp.ListItem key={2} isVisible={listVisibility} delay={2*counterDelay}>
+            <Comp.Label>Critical</Comp.Label>
+            <Comp.Circle>{covid.data.critical}</Comp.Circle>
+        </Comp.ListItem>
+        <Comp.ListItem key={3} isVisible={listVisibility} delay={3*counterDelay}>
+            <Comp.Label>Deaths</Comp.Label>
+            <Comp.Circle>{covid.data.deaths}</Comp.Circle>
+        </Comp.ListItem>
+        <Comp.ListItem key={4} isVisible={listVisibility} delay={4*counterDelay}>
+            <Comp.Label>Recovered</Comp.Label>
+            <Comp.Circle>{covid.data.recovered}</Comp.Circle>
+        </Comp.ListItem>         
+      </Comp.List>      
+      <Comp.Footer>Developed by Alexandre Czechowicz</Comp.Footer>
     </>
   );
 }

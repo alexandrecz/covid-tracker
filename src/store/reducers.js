@@ -1,6 +1,6 @@
 
 
-const initialState = { loading: false, data: [] };
+const initialState = { loading: false, data: {} };
 
 
 export const covid = (state = initialState, action) => {

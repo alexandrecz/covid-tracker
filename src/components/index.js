@@ -46,6 +46,9 @@ export const ListItem = style.li`
     opacity: ${({ isVisible }) => isVisible ? 1 : 0};     
 `;
 
+export const Logo = style.img`
+    width: 20%;
+`;
 
 export const Title = style.h1`
 	color: rgba(0,0,0,0.8);
@@ -100,7 +103,7 @@ export const Select = style.select`
 
     width: 100%;
     @media screen and (min-width: 600px) {
-        width: 300px;        
+        width: 240px;        
     }
 `;
 
@@ -120,4 +123,11 @@ export const Circle = style.div`
     overflow:hidden;
     padding:2px;
     position:relative;
+`;
+
+export const Footer = style.footer`
+    display: flex;
+    justify-content: center;    
+    font-size: 0.8rem;
+    margin-top: 30px;
 `;
