@@ -7,7 +7,6 @@ Demo here on the Netlify [https://covid-tracker-cz.netlify.app]
 Also using the Awesome COVID API from: [https://github.com/javieraviles/covidAPI].
 
 
-####################################################################################################
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
