@@ -4,7 +4,7 @@ Also using styled component and Stagger Effect.
 
 ![alt text](https://github.com/alexandrecz/covid-tracker/blob/master/img/app.png)
 
-
+Demo here on the Netlify [https://covid-tracker-cz.netlify.app]
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
