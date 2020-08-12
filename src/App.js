@@ -31,7 +31,9 @@ function App({ covid = {}}) {
         dispatch(requestCovidInfo(countryName));
         setToogle();
       }      
-    };    
+    };   
+    
+    
 
   return (
     <>

@@ -113,15 +113,14 @@ export const Circle = style.div`
     align-items: center;
     text-align: center;    
     color: #fff;
-    font-size: 1rem;    
-    font-weight: 100;
+    font-size: 0.9rem;    
+    font-weight: 400;
     background: rgba(0,0,0,0.8);
-    width: 55px;
-    height: 55px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    margin:10px;
-    overflow:hidden;
-    padding:2px;
+    margin:4px;
+    overflow:hidden;    
     position:relative;
 `;
 
@@ -129,5 +128,5 @@ export const Footer = style.footer`
     display: flex;
     justify-content: center;    
     font-size: 0.8rem;
-    margin-top: 30px;
+    padding: 20px;
 `;
